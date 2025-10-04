@@ -57,6 +57,3 @@ def book_details(book_id):
                              book=None, 
                              error_message=MESSAGES['book_not_found'])
 
-if __name__ == '__main__':
-    app.run(debug=True)
-
