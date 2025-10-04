@@ -1,27 +1,27 @@
 from flask import Flask
-from flask_mongoengine import MongoEngine
+from flask_mongoengine import MongoEngine, Document
 from flask_login import LoginManager
 
-# This function creates and configures the Flask app
 def create_app():
     app = Flask(__name__)
-    app.config['MONGODB_SETTINGS'] = {
-        'db': 'library',
-        'host': 'localhost',
-        'port': 27017
-    }
-
+    app.config['MONGODB_SETTINGS'] = { 'db': 'library', 'host': 'localhost', 'port': 27017 }
     app.static_folder = 'assets'
     db = MongoEngine(app)
-
     app.config['SECRET_KEY'] = 'isaaclim009'
 
-    # We will initialize the LoginManager in a later step
     login_manager = LoginManager()
     login_manager.init_app(app)
+    login_manager.login_view = 'auth.login'
+    login_manager.login_message = 'Please login or register first\nto get an account'
+    login_manager.login_message_category = 'info'
 
     return app, db, login_manager
 
 app, db, login_manager = create_app()
 
-# We will add the user loader and other imports here later
+# Import User model and set up user loader
+from app.models.users import User
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.getUserById(user_id)
