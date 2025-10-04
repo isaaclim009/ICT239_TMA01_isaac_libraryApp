@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block body_content %}
+    <!-- Mobile Navbar and Sidebar (Collapse) -->
+    <nav class="navbar d-md-none mobile-navbar">
+        <div class="container-fluid">
+            <div class="ms-auto">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mobileSidebar" aria-controls="mobileSidebar" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Collapsible Sidebar -->
+    <div class="collapse mobile-sidebar" id="mobileSidebar">
+        <div class="mobile-sidebar-content text-white">
+            <div class="p-3">
+                <h3 class="text-white text-center" style="font-size: 1.4rem;">SG Library</h3>
+                <hr>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="{{ url_for('book_titles') }}">
+                            <i class="fa-solid fa-address-card me-3"></i>Book Titles
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- Mobile Page Header - appears below sidebar when collapsed -->
+        <div class="d-md-none px-3 py-2 library-header" style="margin: 0;">
+            <h4 class="text-black mb-0 text-center">{% block mobile_page_header %}BOOK TITLES{% endblock %}</h4>
+        </div>
+    </div>
+
+    <!-- Desktop Fixed Sidebar -->
+    <div class="d-none d-md-block sidebar text-white vh-100 position-fixed desktop-sidebar">
+        <div class="p-3">
+            <h3 class="text-white text-center navbar-brand" style="font-size: 1.4rem;">SG Library</h3>
+            <hr>
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link text-white text-center" href="{{ url_for('book_titles') }}">
+                        <i class="fa-solid fa-address-card me-3"></i>Book Titles
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="main-content">
+        <div class="container-fluid">
+            {% block content %}{% endblock %}
+        </div>
+    </div>
+
+{% endblock %}
