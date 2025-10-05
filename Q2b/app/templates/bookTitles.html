@@ -54,6 +54,18 @@
                     </div>
                     
                     <div class="d-flex justify-content-end p-3 p-md-4 pt-0">
+                        {# Show Make a Loan button for available books. If user is not authenticated,
+                           the route is protected by login_required and will redirect to login with a message. #}
+                        {% if (book.available | default(0) | int) > 0 %}
+                            {# Do not show the loan button to admin users #}
+                            {% if not current_user.is_authenticated or not current_user.is_admin %}
+                                <a href="#" 
+                                    class="btn btn-success me-2" 
+                                    style="border-radius: 8px; padding: 0.5rem 1rem;">
+                                    Make a Loan
+                                </a>
+                            {% endif %}
+                        {% endif %}
                         <a href="{{ url_for('books.book_details', book_id=book.id) }}" 
                            class="btn btn-success" 
                            style="border-radius: 8px; padding: 0.5rem 1rem; margin-right: 1.5rem;">

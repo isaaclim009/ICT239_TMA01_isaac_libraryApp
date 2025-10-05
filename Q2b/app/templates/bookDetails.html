@@ -58,6 +58,22 @@
                    style="border-radius: 8px; padding: 0.5rem 0.5rem; margin-right: 3rem;">
                    Back to Book Titles
                 </a>
+                {# Show Make a Loan button for available books. If user is not authenticated,
+                   the login_required decorator will redirect to login with the required message. #}
+                {% if (book.available | default(0) | int) > 0 %}
+                    {# Hide loan button for admin users; unauthenticated users will be redirected to login by route #}
+                    {% if not current_user.is_authenticated or not current_user.is_admin %}
+                        <a href="#" 
+                           class="btn btn-success"
+                           style="border-radius: 8px; padding: 0.5rem 0.75rem;">
+                           Make a Loan
+                        </a>
+                    {% endif %}
+                {% else %}
+                <button class="btn btn-danger" disabled style="border-radius: 8px; padding: 0.5rem 0.75rem;">
+                    Not Available
+                </button>
+                {% endif %}
             </div>
             </div>
         </div>
