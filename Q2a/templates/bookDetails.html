@@ -6,17 +6,14 @@
 
 {% block content %}
     <div class="bg-light bg-opacity-90 p-3 p-md-4 min-vh-100">
-        <!-- Header - responsive -->
         <div class="d-none d-md-flex justify-content-center justify-content-md-start align-items-center mb-3 mb-md-4 px-2 px-md-3 py-2 rounded library-header">
             <h1 class="text-black mb-0 fs-3 fs-md-1">BOOK DETAILS</h1>
         </div>
         
         {% if book %}
-        <!-- Book details card - responsive layout -->
         <div class="d-flex justify-content-center">
-            <div class="card mb-5 mb-md-6 shadow-sm" style="width: 100%; max-width: 1000px;">
+            <div class="card mb-5 mb-md-6 shadow-sm">
                 <div class="row g-0 align-items-start">
-                <!-- Book image - responsive column sizing -->
                 <div class="col-12 col-sm-4 col-md-4 col-lg-2 d-flex justify-content-center align-items-start p-3 p-md-4" style="min-height: 180px;">
                     <img src="{{ book.url }}" 
                          class="rounded book-image" 
@@ -24,7 +21,6 @@
                          style="width: 350px; min-width: 100%; max-width: 100%; height: auto;">
                 </div>
                 
-                <!-- Book info - responsive column sizing -->
                 <div class="col-12 col-sm-8 col-md-8 col-lg-10">
                     <div class="card-body">
                         <div class="card-title text-dark" style="font-weight:275; font-size:1.25rem;">
@@ -32,7 +28,6 @@
                             By {{ book.authors | join(', ') }}
                         </div>
                         
-                        <!-- Metadata - responsive text sizing -->
                         <div class="mb-3 p-2 p-md-3 bg-light rounded">
                             <p class="mb-0 fs-6 text-muted">
                                 Category: {{ book.category }} {{ book.genres | join(', ') }}<br>
@@ -41,7 +36,6 @@
                             </p>
                         </div>
                         
-                        <!-- Description - responsive text -->
                         <div class="book-description">
                             {% for paragraph in book.description %}
                                 <p class="text-dark fs-6 lh-base">{{ paragraph }}</p>
@@ -51,7 +45,6 @@
                 </div>
             </div>
             
-            <!-- Back button - responsive positioning matching bookTitles style -->
             <div class="d-flex justify-content-end mb-3" style="padding-left: 2rem;">
                 <a href="{{ url_for('book_titles') }}" 
                    class="btn btn-success"
@@ -62,7 +55,6 @@
             </div>
         </div>
         {% else %}
-        <!-- Error message when book not found -->
         <div class="d-flex justify-content-center">
             <div style="width: 100%; max-width: 1000px;">
                 <div class="alert alert-warning" role="alert">

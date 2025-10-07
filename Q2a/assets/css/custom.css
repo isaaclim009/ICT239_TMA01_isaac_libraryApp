@@ -31,10 +31,10 @@ html {
 }
 
 .container-fluid {
-    padding: 0 !important;
-    overflow-x: hidden !important;
-    max-width: 100% !important;
-    width: 100% !important;
+    padding: 0;
+    overflow-x: hidden;
+    max-width: 100%;
+    width: 100%;
     box-sizing: border-box;
 }
 
@@ -49,65 +49,65 @@ html {
 
 @media (min-width: 768px) {
     .main-content {
-        margin-left: 250px !important;
-        width: calc(100vw - 250px) !important;
-        max-width: calc(100vw - 250px) !important;
-        overflow-x: hidden !important;
-        box-sizing: border-box !important;
+        margin-left: 250px;
+        width: calc(100vw - 250px);
+        max-width: calc(100vw - 250px);
+        overflow-x: hidden;
+        box-sizing: border-box;
     }
     
     
     .main-content * {
-        max-width: 100% !important;
-        box-sizing: border-box !important;
+        max-width: 100%;
+        box-sizing: border-box;
     }
     
     .main-content .card {
-        max-width: calc(100% - 30px) !important;
-        width: 100% !important;
+        max-width: calc(100% - 30px);
+        width: 100%;
     }
     
     .main-content .library-info-box {
-        max-width: calc(100% - 30px) !important;
-        width: 100% !important;
+        max-width: calc(100% - 30px);
+        width: 100%;
     }
 }
 
 @media (max-width: 767.98px) {
     .main-content {
-        margin-left: 0 !important;
-        width: 100vw !important;
-        max-width: 100vw !important;
-        overflow-x: hidden !important;
+        margin-left: 0;
+        width: 100vw;
+        max-width: 100vw;
+        overflow-x: hidden;
     }
 }
 
 .sidebar {
-    background: url("https://library.suss.edu.sg/wp-content/uploads/2023/11/Study-Space_High-table-2-cropped-300x200.png") !important;
-    background-size: 1450px !important;
-    background-position: -25px 0px !important;
-    background-repeat: no-repeat !important;
-    width: 250px !important;
-    min-width: 250px !important;
-    max-width: 250px !important;
-    box-shadow: 4px 4px 12px 0 var(--library-shadow) !important;
+    background: url("https://library.suss.edu.sg/wp-content/uploads/2023/11/Study-Space_High-table-2-cropped-300x200.png");
+    background-size: 1450px;
+    background-position: -25px 0px;
+    background-repeat: no-repeat;
+    width: 250px;
+    min-width: 250px;
+    max-width: 250px;
+    box-shadow: 4px 4px 12px 0 var(--library-shadow);
 }
 
 .sidebar .navbar-brand {
-    margin-top: 10px !important;
-    margin-bottom: 15px !important;
-    line-height: 1.4 !important;
-    padding: 0 15px !important;
+    margin-top: 10px;
+    margin-bottom: 15px;
+    line-height: 1.4;
+    padding: 0 15px;
 }
 
 .sidebar .nav-link {
-    margin: 5px 15px !important;
-    padding: 8px 15px !important;
-    border-radius: 6px !important;
+    margin: 5px 15px;
+    padding: 8px 15px;
+    border-radius: 6px;
 }
 
 .sidebar .nav-link:hover {
-    background-color: rgba(255, 255, 255, 0.1) !important;
+    background-color: rgba(255, 255, 255, 0.1);
 }
 
 .mobile-navbar {
@@ -132,51 +132,51 @@ html {
 }
 
 .mobile-sidebar-content {
-    background: url("https://library.suss.edu.sg/wp-content/uploads/2023/11/Study-Space_High-table-2-cropped-300x200.png") !important;
-    background-size: 1000px !important;
-    background-position: 0px 0px !important;
-    background-repeat: no-repeat !important;
-    width: 100vw !important;
+    background: url("https://library.suss.edu.sg/wp-content/uploads/2023/11/Study-Space_High-table-2-cropped-300x200.png");
+    background-size: 1000px;
+    background-position: 0px 0px;
+    background-repeat: no-repeat;
+    width: 100vw;
 }
 
 @media (max-width: 767.98px) {
     .mobile-sidebar {
-        width: 100vw !important;
-        max-width: 100vw !important;
-        min-width: 100vw !important;
-        position: static !important;
-        box-shadow: none !important;
-        margin: 0 !important;
-        padding: 0 !important;
-        overflow-x: hidden !important;
+        width: 100vw;
+        max-width: 100vw;
+        min-width: 100vw;
+        position: static;
+        box-shadow: none;
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden;
 
     }
 }
 
 @media (min-width: 768px) {
     .mobile-sidebar {
-        display: none !important;
+        display: none;
     }
     .mobile-toggle {
-        display: none !important;
+        display: none;
     }
 }
 
 @media (max-width: 767.98px) {
     .desktop-sidebar {
-        display: none !important;
+        display: none;
     }
     .desktop-toggle {
-        display: none !important;
+        display: none;
     }
 }
 
 hr {
-    background-color: #ccc !important;
-    border: none !important;
-    margin: 1rem 0 !important;
-    min-height: 1px !important;
-    max-height: 1px !important;
+    background-color: #ccc;
+    border: none;
+    margin: 1rem 0;
+    min-height: 1px;
+    max-height: 1px;
 }
 
 .card {
@@ -214,9 +214,9 @@ hr {
 }
 
 .text-available {
-    color: var(--library-success) !important;
+    color: var(--library-success);
 }
 
 .text-unavailable {
-    color: #dc3545 !important;
+    color: #dc3545;
 }
