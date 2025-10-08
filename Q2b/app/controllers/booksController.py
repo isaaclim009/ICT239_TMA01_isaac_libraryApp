@@ -101,7 +101,6 @@ def db_status():
 @login_required
 def add_book():
     """Add new book - Admin only"""
-    # Check if user is admin
     if not current_user.is_admin:
         flash('Access denied. Admin privileges required.', 'error')
         return redirect(url_for('books.book_titles'))
@@ -109,16 +108,13 @@ def add_book():
     form = AddBookForm()
     
     if request.method == 'POST':
-        # Process form data to handle checkbox genres properly
         form.process(request.form)
         
-        # Handle "Add More Authors" button
         if 'add_author' in request.form:
             current_count = session.get('author_count', 5)
             session['author_count'] = current_count + 1
             return render_template('addBook.html', form=form, panel="ADD A BOOK")
         
-        # Handle form submission (when submit button is clicked)
         if 'submit' in request.form or 'confirm_duplicate' in request.form or 'confirm_repeated_authors' in request.form:
             if form.validate():
                 try:
@@ -218,11 +214,9 @@ def add_book():
                     flash(f'Error adding book: {str(e)}', 'error')
                     return render_template('addBook.html', form=form, panel="ADD A BOOK")
             else:
-                # Form validation failed - show errors
                 flash('Please correct the errors below and try again.', 'error')
                 return render_template('addBook.html', form=form, panel="ADD A BOOK")
     else:
-        # Clear session data on GET request (new form)
         session.pop('author_count', None)
     
     return render_template('addBook.html', form=form, panel="ADD A BOOK")

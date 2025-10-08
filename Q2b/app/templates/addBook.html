@@ -153,7 +153,7 @@
                             {% if session.get('author_count') and session.author_count > 5 %}
                                 {% for i in range(6, session.author_count + 1) %}
                                 <div class="mb-3 d-flex align-items-center">
-                                    <label class="form-label me-3 mb-0 form-label-fixed-width">Author {{ i }}</label>
+                                    <label class="form-label me-3 mb-0 form-label-fixed-width">Author {{ i }}:</label>
                                     <input type="text" name="author{{ i }}" class="form-control me-3" value="{{ request.form.get('author' + i|string, '') }}">
                                     <div class="form-check mb-0">
                                         <input type="checkbox" name="illustrator{{ i }}" class="form-check-input" id="illustrator{{ i }}" 
