@@ -6,9 +6,12 @@ from app.models.users import User
 
 # Import and register the books controller (Blueprint)
 from app.controllers.booksController import books
-app.register_blueprint(books)
+from app.controllers.authentication import auth
+from app.controllers.loansController import loans
 
-# We will register other blueprints for auth and loans here in later steps
+app.register_blueprint(books)
+app.register_blueprint(auth)
+app.register_blueprint(loans)
 
 # Make config variables available in all templates
 @app.context_processor
