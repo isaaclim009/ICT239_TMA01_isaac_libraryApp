@@ -83,7 +83,8 @@
                                         <td class="text-start align-middle">
                                             {% if loan.is_returned %}
                                                 <a href="{{ url_for('loans.delete_loan', loan_id=loan.id) }}" 
-                                                   class="btn btn-danger btn-sm" style="min-width: 80px;">
+                                                   class="btn btn-danger btn-sm" style="min-width: 80px;"
+                                                   onclick="return confirm('Are you sure you want to delete this loan record?');">
                                                     Delete
                                                 </a>
                                             {% else %}
