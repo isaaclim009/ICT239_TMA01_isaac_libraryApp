@@ -6,8 +6,13 @@
 
 {% block content %}
     <div class="bg-light bg-opacity-90 p-3 p-md-4 min-vh-100">
-        <div class="d-none d-md-flex justify-content-center justify-content-md-between align-items-center mb-3 mb-md-4 px-2 px-md-3 py-2 rounded library-header">
+    <div class="d-none d-md-flex {% if current_user.is_authenticated %}justify-content-center justify-content-md-between{% else %}justify-content-start{% endif %} align-items-center mb-3 mb-md-4 px-2 px-md-3 py-2 rounded library-header">
             <h1 class="text-black mb-0 fs-3 fs-md-1">BOOK TITLES</h1>
+            {% if current_user.is_authenticated %}
+            <button class="btn btn-link text-black p-0" data-bs-toggle="modal" data-bs-target="#logoutModal" style="font-size: 1rem;" title="Logout">
+                <i class="fa-solid fa-sign-out-alt"></i>
+            </button>
+            {% endif %}
         </div>
         
         <div class="d-flex justify-content-center">
@@ -29,7 +34,7 @@
         
         <div class="d-flex flex-column align-items-center">
             {% for book in books %}
-            <div class="card mb-3 mb-md-4">
+            <div class="card card-common mb-3 mb-md-4">
                 <div class="row g-0 align-items-start">
                 <div class="col-12 col-sm-4 col-md-4 col-lg-2 d-flex justify-content-center align-items-start p-3 p-md-4">
                     <img src="{{ book.url }}" 
@@ -53,13 +58,27 @@
                         <p class="book-description">{{ book.description_preview|safe }}</p>
                     </div>
                     
-                    <div class="d-flex justify-content-end p-3 p-md-4 pt-0">
-                        <a href="{{ url_for('books.book_details', book_id=book.id) }}" 
-                           class="btn btn-success" 
-                           style="border-radius: 8px; padding: 0.5rem 1rem; margin-right: 1.5rem;">
-                           More details
-                        </a>
-                    </div>
+                          <div class="d-flex justify-content-end p-3 p-md-4 pt-0">
+
+                                {# Show Make a Loan button for available books. If user is not authenticated,
+                                   the route is protected by login_required and will redirect to login with a message. #}
+                                {% if (book.available | default(0) | int) > 0 %}
+                                    {# Do not show the loan button to admin users #}
+                                    {% if not current_user.is_authenticated or not current_user.is_admin %}
+                                        <a href="{{ url_for('loans.make_loan', book_id=book.id) }}" 
+                                            class="btn btn-success me-2" 
+                                            style="border-radius: 8px; padding: 0.5rem 1rem;">
+                                            Make a Loan
+                                        </a>
+                                    {% endif %}
+                                {% endif %}
+
+                                <a href="{{ url_for('books.book_details', book_id=book.id) }}" 
+                                    class="btn btn-success" 
+                                    style="border-radius: 8px; padding: 0.5rem 1rem;">
+                                    More details
+                                </a>
+                          </div>
                 </div>
             </div>
         </div>
