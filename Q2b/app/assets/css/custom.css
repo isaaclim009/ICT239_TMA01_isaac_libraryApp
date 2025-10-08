@@ -236,13 +236,6 @@ hr {
 /* Custom card styles */
 .card {
     box-shadow: 4px 4px 12px 0 var(--library-shadow);
-    transition: all 0.3s ease;
-    cursor: pointer;
-}
-
-.card:hover {
-    box-shadow: 8px 8px 20px rgba(0,0,0,0.25);
-    transform: translateY(-4px);
 }
 
 /* Card animation styles */
