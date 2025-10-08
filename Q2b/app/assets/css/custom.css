@@ -1,3 +1,23 @@
+/* Oval profile image for sidebar */
+.sidebar-profile-oval {
+    width: 2.6rem;
+    height: 1.8rem;
+    border-radius: 50% / 50%;
+    object-fit: cover;
+    background: #fff;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.10);
+    display: inline-block;
+}
+/* Fixed width for all form labels in Add Book form */
+.form-label-fixed-width {
+    min-width: 180px;
+    font-weight: bold; /* make labels bold */
+    white-space: normal; /* allow wrapping */
+    word-break: break-word; /* allow breaking long words */
+}
+/* Library Website Custom Styles */
+
+/* Body and HTML base styles */
 body {
     margin: 0;
     padding: 0;
@@ -19,10 +39,12 @@ html {
     box-sizing: border-box;
 }
 
+/* Utility classes */
 .min-vh-100 {
     min-height: 100vh;
 }
 
+/* Library-specific color scheme */
 :root {
     --library-primary: #bed1be;
     --library-secondary: #def0e2;
@@ -30,6 +52,7 @@ html {
     --library-shadow: rgba(0,0,0,0.18);
 }
 
+/* Container and layout styles */
 .container-fluid {
     padding: 0;
     overflow-x: hidden;
@@ -38,15 +61,17 @@ html {
     box-sizing: border-box;
 }
 
+/* Main content layout */
 .main-content {
-    margin-left: 250px;
-    overflow-x: hidden;
+    margin-left: 250px; /* Fixed margin to match sidebar width */
+    overflow-x: hidden; /* Prevent horizontal scrolling */
     width: calc(100vw - 250px);
     max-width: calc(100vw - 250px);
     box-sizing: border-box;
-    padding: 0 15px;
+    padding: 0 30px 0 15px; /* Less padding on left, more on right for balance */
 }
 
+/* Desktop layout with fixed sidebar */
 @media (min-width: 768px) {
     .main-content {
         margin-left: 250px;
@@ -56,32 +81,37 @@ html {
         box-sizing: border-box;
     }
     
-    
+    /* Ensure all child elements respect the container width */
     .main-content * {
         max-width: 100%;
         box-sizing: border-box;
     }
     
+    /* Specific card width constraints */
     .main-content .card {
         max-width: calc(100% - 30px);
         width: 100%;
     }
     
+    /* Info box width constraints */
     .main-content .library-info-box {
         max-width: calc(100% - 30px);
         width: 100%;
     }
 }
 
+/* Mobile adjustments */
 @media (max-width: 767.98px) {
     .main-content {
         margin-left: 0;
         width: 100vw;
         max-width: 100vw;
+        padding-top: 45px; /* Match navbar height exactly - no gap */
         overflow-x: hidden;
     }
 }
 
+/* Sidebar styles */
 .sidebar {
     background: url("https://library.suss.edu.sg/wp-content/uploads/2023/11/Study-Space_High-table-2-cropped-300x200.png");
     background-size: 1450px;
@@ -93,6 +123,7 @@ html {
     box-shadow: 4px 4px 12px 0 var(--library-shadow);
 }
 
+/* Sidebar brand alignment */
 .sidebar .navbar-brand {
     margin-top: 10px;
     margin-bottom: 15px;
@@ -110,8 +141,13 @@ html {
     background-color: rgba(255, 255, 255, 0.1);
 }
 
+/* Mobile navbar positioning */
 .mobile-navbar {
-    position: static;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1051;
     background-color: #fff;
     border-bottom: 1px solid #ddd;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -131,28 +167,44 @@ html {
     border-color: var(--bs-primary);
 }
 
+/* Mobile sidebar - completely independent styling */
 .mobile-sidebar-content {
     background: url("https://library.suss.edu.sg/wp-content/uploads/2023/11/Study-Space_High-table-2-cropped-300x200.png");
     background-size: 1000px;
     background-position: 0px 0px;
     background-repeat: no-repeat;
     width: 100vw;
+    padding-top: 45px;
 }
 
+/* Mobile sidebar positioning */
 @media (max-width: 767.98px) {
     .mobile-sidebar {
         width: 100vw;
         max-width: 100vw;
         min-width: 100vw;
         position: static;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1050;
         box-shadow: none;
         margin: 0;
         padding: 0;
+        padding-top: 27px;
         overflow-x: hidden;
-
+    }
+    
+    /* When scrolled, change to fixed positioning */
+    .mobile-sidebar.scrolled {
+        position: fixed;
+        top: 45px;
+        padding-top: 0;
+        z-index: 1050;
     }
 }
 
+/* Desktop styles - hide mobile elements */
 @media (min-width: 768px) {
     .mobile-sidebar {
         display: none;
@@ -162,6 +214,7 @@ html {
     }
 }
 
+/* Mobile styles - hide desktop elements */
 @media (max-width: 767.98px) {
     .desktop-sidebar {
         display: none;
@@ -171,6 +224,7 @@ html {
     }
 }
 
+/* Horizontal line styles */
 hr {
     background-color: #ccc;
     border: none;
@@ -179,10 +233,32 @@ hr {
     max-height: 1px;
 }
 
+/* Custom card styles */
 .card {
     box-shadow: 4px 4px 12px 0 var(--library-shadow);
 }
 
+/* Card animation styles */
+.card-common {
+    box-shadow: 4px 4px 12px 0 var(--library-shadow);
+    transition: all .4s;
+}
+
+.card-common:hover {
+    box-shadow: 8px 8px 20px rgba(0,0,0,0.25);
+    transform: translateY(-2px);
+}
+
+/* Disable hover depth animation for specific cards */
+.card-common.no-hover-shadow {
+    transition: none;
+}
+.card-common.no-hover-shadow:hover {
+    box-shadow: 4px 4px 12px 0 var(--library-shadow); /* same as default */
+    transform: none;
+}
+
+/* Header styles */
 .library-header {
     background-color: var(--library-primary);
     box-shadow: 4px 4px 12px 0 var(--library-shadow);
@@ -193,6 +269,7 @@ hr {
     box-shadow: 4px 4px 12px 0 var(--library-shadow);
 }
 
+/* Button styles */
 .btn-success {
     background-color: var(--library-success);
     border-color: var(--library-success);
@@ -203,20 +280,136 @@ hr {
     border-color: #146c43;
 }
 
+/* Book image styles */
 .book-image {
     aspect-ratio: 2/3;
     object-fit: cover;
     border-radius: 6px;
 }
 
+/* Sidebar navigation: align icon and label vertically */
+.sidebar .nav-link {
+    display: flex;
+    align-items: center;
+    gap: 0.50rem; /* consistent spacing between icon and text */
+}
+
+.sidebar .nav-link i,
+.sidebar .nav-link img {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.05rem; /* consistent icon size */
+    line-height: 1;
+}
+
+/* Responsive book description */
 .book-description p {
     line-height: 1.6;
 }
 
+/* Available/Unavailable status colors */
 .text-available {
     color: var(--library-success);
 }
 
 .text-unavailable {
     color: #dc3545;
+}
+
+/* Modal Dialog Custom Styles */
+/* Override global width constraints that affect modals */
+.modal {
+    position: fixed;
+    z-index: 1055;
+}
+
+.modal * {
+    max-width: none;
+}
+
+.modal-dialog {
+    position: relative;
+    width: auto;
+    max-width: 500px;
+    margin: 1.75rem auto;
+}
+
+.modal-dialog.modal-sm {
+    max-width: 300px;
+    width: 300px;
+}
+
+.modal-dialog-centered {
+    display: flex;
+    align-items: center;
+    min-height: calc(100vh - 3.5rem);
+}
+
+.modal-content {
+    position: relative;
+    width: 100%;
+    background-color: #fff;
+    border: 1px solid rgba(0,0,0,.2);
+    border-radius: 0.375rem;
+    box-shadow: 0 0.5rem 1rem rgba(0,0,0,.15);
+}
+
+/* Fix modal positioning on mobile devices */
+@media (max-width: 576px) {
+    .modal-dialog {
+        margin: 2rem 1rem 1rem 1rem; /* Top margin larger, equal left/right margins */
+        max-width: calc(100% - 2rem);
+        width: calc(100% - 2rem);
+    }
+    
+    .modal-dialog-centered {
+        display: block; /* Override flex centering */
+        align-items: unset;
+        min-height: unset;
+    }
+    
+    #logoutModal .modal-content,
+    #duplicateModal .modal-content {
+        margin: 0;
+        border-radius: 0.5rem;
+        width: 100%;
+    }
+    
+    #logoutModal .modal-body,
+    #logoutModal .modal-header,
+    #logoutModal .modal-footer,
+    #duplicateModal .modal-body,
+    #duplicateModal .modal-header,
+    #duplicateModal .modal-footer {
+        padding-left: 1rem;
+        padding-right: 1rem;
+        margin-left: 0;
+        margin-right: 0;
+    }
+    
+    /* Ensure modal container doesn't have any inherited padding */
+    .modal {
+        padding-left: 0;
+        padding-right: 0;
+    }
+    
+    /* Force equal horizontal spacing */
+    .modal-dialog * {
+        margin-left: 0;
+        margin-right: 0;
+    }
+}
+
+/* Fix flash/alert close button alignment for long messages */
+.alert {
+    position: relative; /* ensure absolute-positioned close button is positioned relative to the alert */
+    padding-right: 3rem; /* space for the close button so message doesn't overlap */
+}
+
+.alert .btn-close {
+    position: absolute;
+    top: 0.6rem; /* align closer to the top so it appears visually aligned with the message */
+    right: 0.75rem;
+    z-index: 2;
 }
