@@ -34,6 +34,13 @@
                             <i class="fa-solid fa-address-card me-3"></i>Book Titles
                         </a>
                     </li>
+                    {% if current_user.is_authenticated and not current_user.is_admin %}
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="{{ url_for('loans.view_loans') }}">
+                            <span style="margin-left: 0.1rem;"><i class="fa-solid fa-book me-3"></i><span style="margin-left: 0.1rem;">Loans</span>
+                        </a>
+                    </li>
+                    {% endif %}
                     {% if current_user.is_authenticated and current_user.is_admin %}
                     <li class="nav-item">
                         <a class="nav-link text-white" href="{{ url_for('books.add_book') }}">
@@ -88,6 +95,13 @@
                         <i class="fa-solid fa-address-card me-3"></i>Book Titles
                     </a>
                 </li>
+                {% if current_user.is_authenticated and not current_user.is_admin %}
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="{{ url_for('loans.view_loans') }}">
+                        <span style="margin-left: 0.1rem;"><i class="fa-solid fa-book me-3"></i><span style="margin-left: 0.7rem;">Loans</span>
+                    </a>
+                </li>
+                {% endif %}
                 {% if current_user.is_authenticated and current_user.is_admin %}
                 <li class="nav-item">
                     <a class="nav-link text-white" href="{{ url_for('books.add_book') }}">
