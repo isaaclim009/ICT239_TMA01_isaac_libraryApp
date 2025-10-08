@@ -16,7 +16,7 @@
         </div>
 
         <div class="d-flex justify-content-center">
-            <div class="card shadow" style="width: 100%; max-width: 800px; border-radius: 8px;">
+            <div class="card shadow">
                 <div class="card-body p-4">
                     {% with messages = get_flashed_messages(with_categories=true) %}
                         {% if messages %}
@@ -35,7 +35,7 @@
                         <!-- Genres (scrolling multi-select, label beside input) -->
                         <div class="mb-3 d-flex align-items-start">
                             <label class="form-label me-3 mb-0 form-label-fixed-width">Choose multiple</br>Genres:</label>
-                            <div style="flex:1; max-width: 500px;">
+                            <div style="flex:1">
                                 <select name="genres" id="genres" multiple class="form-select" size="4" style="height: auto; overflow:auto; width: 100%;">
                                     {% for value, label in form.genres.choices %}
                                         <option value="{{ value }}" {% if form.genres.data and value in form.genres.data %}selected{% endif %}>{{ label }}</option>
@@ -53,7 +53,7 @@
                         <!-- Title -->
                         <div class="mb-3 d-flex align-items-center">
                             {{ form.title.label(class="form-label me-3 mb-0 form-label-fixed-width") }}
-                            <div style="flex:1; max-width: 500px;">
+                            <div style="flex:1">
                                 {{ form.title(class="form-control", style="width: 100%;") }}
                                 {% if form.title.errors %}
                                     {% for error in form.title.errors %}
@@ -66,7 +66,7 @@
                         <!-- Category -->
                         <div class="mb-3 d-flex align-items-center">
                             {{ form.category.label(class="form-label me-3 mb-0 form-label-fixed-width") }}
-                            <div style="flex:1; max-width: 500px;">
+                            <div style="flex:1">
                                 {{ form.category(class="form-select", style="width: 100%;") }}
                                 {% if form.category.errors %}
                                     {% for error in form.category.errors %}
@@ -79,7 +79,7 @@
                         <!-- URL for Cover -->
                         <div class="mb-3 d-flex align-items-center">
                             {{ form.url.label(class="form-label me-3 mb-0 form-label-fixed-width") }}
-                            <div style="flex:1; max-width: 500px;">
+                            <div style="flex:1">
                                 {{ form.url(class="form-control", style="width: 100%;") }}
                                 {% if form.url.errors %}
                                     {% for error in form.url.errors %}
@@ -92,7 +92,7 @@
                         <!-- Description -->
                         <div class="mb-3 d-flex align-items-start">
                             {{ form.description.label(class="form-label me-3 mb-0 form-label-fixed-width") }}
-                            <div style="flex:1; max-width: 500px;">
+                            <div style="flex:1">
                                 {{ form.description(class="form-control", rows="6", style="width: 100%;") }}
                                 {% if form.description.errors %}
                                     {% for error in form.description.errors %}
@@ -107,7 +107,7 @@
                             <!-- Author 1 (Required) -->
                             <div class="mb-3 d-flex align-items-center">
                                 {{ form.author1.label(class="form-label me-3 mb-0 form-label-fixed-width") }}
-                                {{ form.author1(class="form-control me-3", style="width: 100%; max-width: 500px;") }}
+                                {{ form.author1(class="form-control me-3") }}
                                 <div class="form-check mb-0">
                                     {{ form.illustrator1(class="form-check-input") }}
                                     {{ form.illustrator1.label(class="form-check-label") }}
@@ -116,7 +116,7 @@
                             <!-- Author 2 -->
                             <div class="mb-3 d-flex align-items-center">
                                 {{ form.author2.label(class="form-label me-3 mb-0 form-label-fixed-width") }}
-                                {{ form.author2(class="form-control me-3", style="width: 100%; max-width: 500px;") }}
+                                {{ form.author2(class="form-control me-3") }}
                                 <div class="form-check mb-0">
                                     {{ form.illustrator2(class="form-check-input") }}
                                     {{ form.illustrator2.label(class="form-check-label") }}
@@ -125,7 +125,7 @@
                             <!-- Author 3 -->
                             <div class="mb-3 d-flex align-items-center">
                                 {{ form.author3.label(class="form-label me-3 mb-0 form-label-fixed-width") }}
-                                {{ form.author3(class="form-control me-3", style="width: 100%; max-width: 500px;") }}
+                                {{ form.author3(class="form-control me-3") }}
                                 <div class="form-check mb-0">
                                     {{ form.illustrator3(class="form-check-input") }}
                                     {{ form.illustrator3.label(class="form-check-label") }}
@@ -134,7 +134,7 @@
                             <!-- Author 4 -->
                             <div class="mb-3 d-flex align-items-center">
                                 {{ form.author4.label(class="form-label me-3 mb-0 form-label-fixed-width") }}
-                                {{ form.author4(class="form-control me-3", style="width: 100%; max-width: 500px;") }}
+                                {{ form.author4(class="form-control me-3") }}
                                 <div class="form-check mb-0">
                                     {{ form.illustrator4(class="form-check-input") }}
                                     {{ form.illustrator4.label(class="form-check-label") }}
@@ -143,7 +143,7 @@
                             <!-- Author 5 -->
                             <div class="mb-3 d-flex align-items-center">
                                 {{ form.author5.label(class="form-label me-3 mb-0 form-label-fixed-width") }}
-                                {{ form.author5(class="form-control me-3", style="width: 100%; max-width: 500px;") }}
+                                {{ form.author5(class="form-control me-3") }}
                                 <div class="form-check mb-0">
                                     {{ form.illustrator5(class="form-check-input") }}
                                     {{ form.illustrator5.label(class="form-check-label") }}
@@ -154,7 +154,7 @@
                                 {% for i in range(6, session.author_count + 1) %}
                                 <div class="mb-3 d-flex align-items-center">
                                     <label class="form-label me-3 mb-0 form-label-fixed-width">Author {{ i }}</label>
-                                    <input type="text" name="author{{ i }}" class="form-control me-3" style="width: 100%; max-width: 500px;" value="{{ request.form.get('author' + i|string, '') }}">
+                                    <input type="text" name="author{{ i }}" class="form-control me-3" value="{{ request.form.get('author' + i|string, '') }}">
                                     <div class="form-check mb-0">
                                         <input type="checkbox" name="illustrator{{ i }}" class="form-check-input" id="illustrator{{ i }}" 
                                                {% if request.form.get('illustrator' + i|string) %}checked{% endif %}>
@@ -175,7 +175,7 @@
                         <!-- Number of pages -->
                         <div class="mb-3 d-flex align-items-center">
                             {{ form.pages.label(class="form-label me-3 mb-0 form-label-fixed-width") }}
-                            <div style="flex:1; max-width: 500px;">
+                            <div style="flex:1">
                                 {{ form.pages(class="form-control", style="width: 100%;") }}
                                 {% if form.pages.errors %}
                                     {% for error in form.pages.errors %}
@@ -188,7 +188,7 @@
                         <!-- Number of copies -->
                         <div class="mb-3 d-flex align-items-center">
                             {{ form.copies.label(class="form-label me-3 mb-0 form-label-fixed-width") }}
-                            <div style="flex:1; max-width: 500px;">
+                            <div style="flex:1">
                                 {{ form.copies(class="form-control", style="width: 100%;") }}
                                 {% if form.copies.errors %}
                                     {% for error in form.copies.errors %}
