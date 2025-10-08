@@ -2,6 +2,7 @@ from app import app, db
 from app.models.books import Book
 from app.config import TITLES, BOOK_CATEGORIES, UI_CONFIG, MESSAGES
 from flask import render_template
+from app.models.users import User
 
 # Import and register the books controller (Blueprint)
 from app.controllers.booksController import books
@@ -26,5 +27,15 @@ def inject_config():
 try:
     with app.app_context():
         Book.bookDatabase()
+
+        # Create admin user
+        if not User.getUser('admin@lib.sg'):
+            User.createUser('admin@lib.sg', 'Admin', '12345', is_admin=True)
+            print("Created admin user: admin@lib.sg")
+
+        # Create regular user
+        if not User.getUser('poh@lib.sg'):
+            User.createUser('poh@lib.sg', 'Peter Oh', '12345', is_admin=False)
+            print("Created regular user: poh@lib.sg")
 except Exception as e:
     print(f"Warning: Could not initialize database on startup: {e}")
