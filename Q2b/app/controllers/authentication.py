@@ -28,7 +28,7 @@ def login():
         if form.validate():
             user = User.getUser(email=form.email.data)
             if user and user.check_password(form.password.data):
-                login_user(user)
+                login_user(user, remember=form.remember.data)
                 return redirect(url_for('books.book_titles'))      
             else:
                 if user:
