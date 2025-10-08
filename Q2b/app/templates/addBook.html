@@ -1,0 +1,360 @@
+{% extends 'sidebar.html' %}
+
+{% block title %}Add New Book{% endblock %}
+
+{% block mobile_page_header %}ADD A BOOK{% endblock %}
+
+{% block content %}
+    <div class="bg-light bg-opacity-90 p-3 p-md-4 min-vh-100">
+        <div class="d-none d-md-flex justify-content-center justify-content-md-between align-items-center mb-3 mb-md-4 px-2 px-md-3 py-2 rounded library-header">
+            <h1 class="text-black mb-0 fs-3 fs-md-1">ADD A BOOK</h1>
+            {% if current_user.is_authenticated %}
+            <button class="btn btn-link text-black p-0" data-bs-toggle="modal" data-bs-target="#logoutModal" style="font-size: 1rem;" title="Logout">
+                <i class="fa-solid fa-sign-out-alt"></i>
+            </button>
+            {% endif %}
+        </div>
+
+        <div class="d-flex justify-content-center">
+            <div class="card shadow" style="width: 100%; max-width: 800px; border-radius: 8px;">
+                <div class="card-body p-4">
+                    {% with messages = get_flashed_messages(with_categories=true) %}
+                        {% if messages %}
+                            {% for category, message in messages %}
+                                <div class="alert alert-{{ 'danger' if category == 'error' else 'success' if category == 'success' else 'info' }} alert-dismissible fade show" role="alert">
+                                    {{ message }}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
+
+                    <form action="{{ url_for('books.add_book') }}" method="post">
+                        {{ form.hidden_tag() }}
+                        
+                        <!-- Genres (scrolling multi-select, label beside input) -->
+                        <div class="mb-3 d-flex align-items-start">
+                            <label class="form-label me-3 mb-0 form-label-fixed-width">Choose multiple</br>Genres:</label>
+                            <div style="flex:1; max-width: 500px;">
+                                <select name="genres" id="genres" multiple class="form-select" size="4" style="height: auto; overflow:auto; width: 100%;">
+                                    {% for value, label in form.genres.choices %}
+                                        <option value="{{ value }}" {% if form.genres.data and value in form.genres.data %}selected{% endif %}>{{ label }}</option>
+                                    {% endfor %}
+                                </select>
+                                <div class="form-text small mt-1">Tip: Hold Ctrl (Windows) or Cmd (Mac) to select multiple genres.</div>
+                                {% if form.genres.errors %}
+                                    {% for error in form.genres.errors %}
+                                        <div class="text-danger small">{{ error }}</div>
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <!-- Title -->
+                        <div class="mb-3 d-flex align-items-center">
+                            {{ form.title.label(class="form-label me-3 mb-0 form-label-fixed-width") }}
+                            <div style="flex:1; max-width: 500px;">
+                                {{ form.title(class="form-control", style="width: 100%;") }}
+                                {% if form.title.errors %}
+                                    {% for error in form.title.errors %}
+                                        <div class="text-danger small">{{ error }}</div>
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <!-- Category -->
+                        <div class="mb-3 d-flex align-items-center">
+                            {{ form.category.label(class="form-label me-3 mb-0 form-label-fixed-width") }}
+                            <div style="flex:1; max-width: 500px;">
+                                {{ form.category(class="form-select", style="width: 100%;") }}
+                                {% if form.category.errors %}
+                                    {% for error in form.category.errors %}
+                                        <div class="text-danger small">{{ error }}</div>
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <!-- URL for Cover -->
+                        <div class="mb-3 d-flex align-items-center">
+                            {{ form.url.label(class="form-label me-3 mb-0 form-label-fixed-width") }}
+                            <div style="flex:1; max-width: 500px;">
+                                {{ form.url(class="form-control", style="width: 100%;") }}
+                                {% if form.url.errors %}
+                                    {% for error in form.url.errors %}
+                                        <div class="text-danger small">{{ error }}</div>
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <!-- Description -->
+                        <div class="mb-3 d-flex align-items-start">
+                            {{ form.description.label(class="form-label me-3 mb-0 form-label-fixed-width") }}
+                            <div style="flex:1; max-width: 500px;">
+                                {{ form.description(class="form-control", rows="6", style="width: 100%;") }}
+                                {% if form.description.errors %}
+                                    {% for error in form.description.errors %}
+                                        <div class="text-danger small">{{ error }}</div>
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <!-- Authors rows (label beside input, left-aligned) -->
+                        <div id="authors-container">
+                            <!-- Author 1 (Required) -->
+                            <div class="mb-3 d-flex align-items-center">
+                                {{ form.author1.label(class="form-label me-3 mb-0 form-label-fixed-width") }}
+                                {{ form.author1(class="form-control me-3", style="width: 100%; max-width: 500px;") }}
+                                <div class="form-check mb-0">
+                                    {{ form.illustrator1(class="form-check-input") }}
+                                    {{ form.illustrator1.label(class="form-check-label") }}
+                                </div>
+                            </div>
+                            <!-- Author 2 -->
+                            <div class="mb-3 d-flex align-items-center">
+                                {{ form.author2.label(class="form-label me-3 mb-0 form-label-fixed-width") }}
+                                {{ form.author2(class="form-control me-3", style="width: 100%; max-width: 500px;") }}
+                                <div class="form-check mb-0">
+                                    {{ form.illustrator2(class="form-check-input") }}
+                                    {{ form.illustrator2.label(class="form-check-label") }}
+                                </div>
+                            </div>
+                            <!-- Author 3 -->
+                            <div class="mb-3 d-flex align-items-center">
+                                {{ form.author3.label(class="form-label me-3 mb-0 form-label-fixed-width") }}
+                                {{ form.author3(class="form-control me-3", style="width: 100%; max-width: 500px;") }}
+                                <div class="form-check mb-0">
+                                    {{ form.illustrator3(class="form-check-input") }}
+                                    {{ form.illustrator3.label(class="form-check-label") }}
+                                </div>
+                            </div>
+                            <!-- Author 4 -->
+                            <div class="mb-3 d-flex align-items-center">
+                                {{ form.author4.label(class="form-label me-3 mb-0 form-label-fixed-width") }}
+                                {{ form.author4(class="form-control me-3", style="width: 100%; max-width: 500px;") }}
+                                <div class="form-check mb-0">
+                                    {{ form.illustrator4(class="form-check-input") }}
+                                    {{ form.illustrator4.label(class="form-check-label") }}
+                                </div>
+                            </div>
+                            <!-- Author 5 -->
+                            <div class="mb-3 d-flex align-items-center">
+                                {{ form.author5.label(class="form-label me-3 mb-0 form-label-fixed-width") }}
+                                {{ form.author5(class="form-control me-3", style="width: 100%; max-width: 500px;") }}
+                                <div class="form-check mb-0">
+                                    {{ form.illustrator5(class="form-check-input") }}
+                                    {{ form.illustrator5.label(class="form-check-label") }}
+                                </div>
+                            </div>
+                            <!-- Additional dynamic authors from session -->
+                            {% if session.get('author_count') and session.author_count > 5 %}
+                                {% for i in range(6, session.author_count + 1) %}
+                                <div class="mb-3 d-flex align-items-center">
+                                    <label class="form-label me-3 mb-0 form-label-fixed-width">Author {{ i }}</label>
+                                    <input type="text" name="author{{ i }}" class="form-control me-3" style="width: 100%; max-width: 500px;" value="{{ request.form.get('author' + i|string, '') }}">
+                                    <div class="form-check mb-0">
+                                        <input type="checkbox" name="illustrator{{ i }}" class="form-check-input" id="illustrator{{ i }}" 
+                                               {% if request.form.get('illustrator' + i|string) %}checked{% endif %}>
+                                        <label class="form-check-label" for="illustrator{{ i }}">Illustrator</label>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                        
+                        <!-- Add More Authors Button -->
+                        <div class="mb-3">
+                            <button type="submit" name="add_author" value="1" class="btn btn-outline-success btn-sm">
+                                <i class="fa-solid fa-plus me-2"></i>Add More Authors
+                            </button>
+                        </div>
+
+                        <!-- Number of pages -->
+                        <div class="mb-3 d-flex align-items-center">
+                            {{ form.pages.label(class="form-label me-3 mb-0 form-label-fixed-width") }}
+                            <div style="flex:1; max-width: 500px;">
+                                {{ form.pages(class="form-control", style="width: 100%;") }}
+                                {% if form.pages.errors %}
+                                    {% for error in form.pages.errors %}
+                                        <div class="text-danger small">{{ error }}</div>
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <!-- Number of copies -->
+                        <div class="mb-3 d-flex align-items-center">
+                            {{ form.copies.label(class="form-label me-3 mb-0 form-label-fixed-width") }}
+                            <div style="flex:1; max-width: 500px;">
+                                {{ form.copies(class="form-control", style="width: 100%;") }}
+                                {% if form.copies.errors %}
+                                    {% for error in form.copies.errors %}
+                                        <div class="text-danger small">{{ error }}</div>
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="text-end">
+                            {{ form.submit(class="btn btn-success", style="border-radius: 8px; padding: 0.5rem 1rem;") }}
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Duplicate Book Confirmation Modal -->
+    {% if show_duplicate_modal %}
+    <div class="modal fade" id="duplicateModal" tabindex="-1" aria-labelledby="duplicateModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-warning">
+                    <h5 class="modal-title" id="duplicateModalLabel">
+                        <i class="fa-solid fa-exclamation-triangle me-2"></i>Potential Duplicate Book
+                    </h5>
+                </div>
+                <div class="modal-body">
+                    <p class="mb-3"><strong>A similar book already exists in the library:</strong></p>
+                    
+                    <div class="card bg-light">
+                        <div class="card-body">
+                            <h6 class="card-title">{{ existing_book.title }}</h6>
+                            <p class="card-text">
+                                <strong>Authors:</strong> {{ existing_book.authors | join(', ') }}<br>
+                                <strong>Genres:</strong> {{ existing_book.genres | join(', ') }}<br>
+                                <strong>Category:</strong> {{ existing_book.category }}
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <p class="mt-3 mb-0">Are you sure you want to add this book anyway?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    
+                    <form action="{{ url_for('books.add_book') }}" method="post" style="display: inline;">
+                        {{ form.hidden_tag() }}
+                        
+                        <!-- Preserve all form data -->
+                        {% for field in form %}
+                            {% if field.name not in ['submit', 'csrf_token'] %}
+                                {% if field.type == 'SelectMultipleField' %}
+                                    {% for value in field.data or [] %}
+                                        <input type="hidden" name="{{ field.name }}" value="{{ value }}">
+                                    {% endfor %}
+                                {% else %}
+                                    <input type="hidden" name="{{ field.name }}" value="{{ field.data or '' }}">
+                                {% endif %}
+                            {% endif %}
+                        {% endfor %}
+                        
+                        <!-- Preserve dynamic authors -->
+                        {% if session.get('author_count') and session.author_count > 5 %}
+                            <input type="hidden" name="author_count" value="{{ session.author_count }}">
+                            {% for i in range(6, session.author_count + 1) %}
+                                {% if request.form.get('author' + i|string) %}
+                                    <input type="hidden" name="author{{ i }}" value="{{ request.form.get('author' + i|string) }}">
+                                {% endif %}
+                                {% if request.form.get('illustrator' + i|string) %}
+                                    <input type="hidden" name="illustrator{{ i }}" value="on">
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                        
+                        <button type="submit" name="confirm_duplicate" value="1" class="btn btn-success">
+                            <i class="fa-solid fa-check me-2"></i>Add Anyway
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Show the modal with fade effect when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            var duplicateModal = new bootstrap.Modal(document.getElementById('duplicateModal'));
+            duplicateModal.show();
+        });
+    </script>
+    {% endif %}
+
+    <!-- Repeated Authors Confirmation Modal -->
+    {% if show_repeated_authors_modal %}
+    <div class="modal fade" id="repeatedAuthorsModal" tabindex="-1" aria-labelledby="repeatedAuthorsModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-warning">
+                    <h5 class="modal-title" id="repeatedAuthorsModalLabel">
+                        <i class="fa-solid fa-exclamation-triangle me-2"></i>Repeated Authors Detected
+                    </h5>
+                </div>
+                <div class="modal-body">
+                    <p class="mb-3"><strong>The following author(s) appear more than once:</strong></p>
+                    
+                    <div class="card bg-light">
+                        <div class="card-body">
+                            <ul class="mb-0">
+                                {% for author in repeated_authors %}
+                                <li class="text-capitalize">{{ author }}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <p class="mt-3 mb-0">This might be a mistake. Do you want to add the book anyway?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel and Edit</button>
+                    
+                    <form action="{{ url_for('books.add_book') }}" method="post" style="display: inline;">
+                        {{ form.hidden_tag() }}
+                        
+                        <!-- Preserve all form data -->
+                        {% for field in form %}
+                            {% if field.name not in ['submit', 'csrf_token'] %}
+                                {% if field.type == 'SelectMultipleField' %}
+                                    {% for value in field.data or [] %}
+                                        <input type="hidden" name="{{ field.name }}" value="{{ value }}">
+                                    {% endfor %}
+                                {% else %}
+                                    <input type="hidden" name="{{ field.name }}" value="{{ field.data or '' }}">
+                                {% endif %}
+                            {% endif %}
+                        {% endfor %}
+                        
+                        <!-- Preserve dynamic authors -->
+                        {% if session.get('author_count') and session.author_count > 5 %}
+                            <input type="hidden" name="author_count" value="{{ session.author_count }}">
+                            {% for i in range(6, session.author_count + 1) %}
+                                {% if request.form.get('author' + i|string) %}
+                                    <input type="hidden" name="author{{ i }}" value="{{ request.form.get('author' + i|string) }}">
+                                {% endif %}
+                                {% if request.form.get('illustrator' + i|string) %}
+                                    <input type="hidden" name="illustrator{{ i }}" value="on">
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                        
+                        <button type="submit" name="confirm_repeated_authors" value="1" class="btn btn-success">
+                            <i class="fa-solid fa-check me-2"></i>Add Anyway
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Show the modal with fade effect when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            var repeatedAuthorsModal = new bootstrap.Modal(document.getElementById('repeatedAuthorsModal'));
+            repeatedAuthorsModal.show();
+        });
+    </script>
+    {% endif %}
+{% endblock %}

@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% block body_content %}
+    <!-- Mobile Navbar and Sidebar (Collapse) -->
     <nav class="navbar d-md-none mobile-navbar">
         <div class="container-fluid">
             <div class="ms-auto">
@@ -11,43 +12,112 @@
         </div>
     </nav>
 
+    <!-- Mobile Collapsible Sidebar -->
     <div class="collapse mobile-sidebar" id="mobileSidebar">
         <div class="mobile-sidebar-content text-white">
             <div class="p-3">
                 <h3 class="text-white text-center" style="font-size: 1.4rem;">SG Library</h3>
-                <hr>
+                {% if current_user.is_authenticated %}
+                <div class="border-bottom border-white my-3 me-2"></div>
+                <div class="border-bottom border-white pb-3 mb-3 me-2">
+                    <div class="nav-link d-flex align-items-center text-white">
+                        <img src="{{ url_for('static', filename='img/admin.jpeg') }}" alt="Profile" class="me-3 sidebar-profile-oval">
+                        <div class="text-white">{{ current_user.name.title() }}</div>
+                    </div>
+                </div>
+                {% else %}
+                <div class="border-bottom border-white my-3 me-2"></div>
+                {% endif %}
                 <ul class="nav flex-column">
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="{{ url_for('book_titles') }}">
+                        <a class="nav-link text-white" href="{{ url_for('books.book_titles') }}">
                             <i class="fa-solid fa-address-card me-3"></i>Book Titles
                         </a>
                     </li>
+                    {% if current_user.is_authenticated and current_user.is_admin %}
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="{{ url_for('books.add_book') }}">
+                            <span style="margin-left: -0.1rem;"><i class="fa-solid fa-cloud-upload me-3"><span style="margin-left: 0rem;"></i>New Book
+                        </a>
+                    </li>
+                    {% endif %}
+                    {% if not current_user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="{{ url_for('auth.login') }}">
+                            <i class="fa-solid fa-sign-in-alt me-3"></i><span style="margin-left: 0.2rem;"></i>Login
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="{{ url_for('auth.register') }}">
+                            <i class="fa-solid fa-user-plus me-3"></i><span style="margin-left: -0.1rem;"></i>Register
+                        </a>
+                    </li>
+                    {% endif %}
                 </ul>
             </div>
         </div>
-        <div class="d-md-none px-3 py-2 library-header" style="margin: 0;">
-            <h4 class="text-black mb-0 text-center">{% block mobile_page_header %}BOOK TITLES{% endblock %}</h4>
+        <!-- Mobile Page Header - appears below sidebar when collapsed -->
+        <div class="d-md-none px-3 py-2 library-header d-flex justify-content-between align-items-center" style="margin: 0;">
+            <h4 class="text-black mb-0">{% block mobile_page_header %}BOOK TITLES{% endblock %}</h4>
+            {% if current_user.is_authenticated %}
+            <button class="btn btn-link text-black p-0 me-2" data-bs-toggle="modal" data-bs-target="#logoutModal" style="font-size: 1.5rem;" title="Logout">
+                <i class="fa-solid fa-sign-out-alt"></i>
+            </button>
+            {% endif %}
         </div>
     </div>
 
+    <!-- Desktop Fixed Sidebar -->
     <div class="d-none d-md-block sidebar text-white vh-100 position-fixed desktop-sidebar">
         <div class="p-3">
             <h3 class="text-white text-center navbar-brand" style="font-size: 1.4rem;">SG Library</h3>
-            <hr>
+            {% if current_user.is_authenticated %}
+            <div class="border-bottom border-white my-2"></div>
+            <div class="border-bottom border-white pb-1 mb-2">
+                <div class="nav-link d-flex align-items-center text-white">
+                    <img src="{{ url_for('static', filename='img/admin.jpeg') }}" alt="Profile" class="me-3 sidebar-profile-oval">
+                    <div class="text-white">{{ current_user.name.title() }}</div>
+                </div>
+            </div>
+            {% else %}
+            <div class="border-bottom border-white my-3"></div>
+            {% endif %}
             <ul class="nav flex-column">
                 <li class="nav-item">
-                    <a class="nav-link text-white text-center" href="{{ url_for('book_titles') }}">
+                    <a class="nav-link text-white" href="{{ url_for('books.book_titles') }}">
                         <i class="fa-solid fa-address-card me-3"></i>Book Titles
                     </a>
                 </li>
+                {% if current_user.is_authenticated and current_user.is_admin %}
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="{{ url_for('books.add_book') }}">
+                        <span style="margin-left: -0.1rem;"><i class="fa-solid fa-cloud-upload me-3"><span style="margin-left: 0.5rem;"></i>New Book
+                    </a>
+                </li>
+                {% endif %}
+                {% if not current_user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="{{ url_for('auth.login') }}">
+                        <i class="fa-solid fa-sign-in-alt me-3"></i><span style="margin-left: 0.2rem;">Login
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="{{ url_for('auth.register') }}">
+                        <i class="fa-solid fa-user-plus me-3"></i><span style="margin-left: -0.1rem;">Register
+                    </a>
+                </li>
+                {% endif %}
             </ul>
         </div>
     </div>
 
+    <!-- Main Content Area -->
     <div class="main-content">
         <div class="container-fluid">
             {% block content %}{% endblock %}
         </div>
     </div>
 
+    {% block extra_scripts %}
+    {% endblock %}
 {% endblock %}
