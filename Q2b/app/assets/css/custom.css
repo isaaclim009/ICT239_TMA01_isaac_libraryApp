@@ -73,15 +73,6 @@ html {
 
 /* Desktop layout with fixed sidebar */
 @media (min-width: 768px) {
-    .main-content {
-        margin-left: 250px;
-        width: calc(100vw - 250px);
-        max-width: calc(100vw - 250px);
-        overflow-x: hidden;
-        box-sizing: border-box;
-        padding: 0;
-    }
-    
     .main-content * {
         max-width: 100%;
         box-sizing: border-box;
