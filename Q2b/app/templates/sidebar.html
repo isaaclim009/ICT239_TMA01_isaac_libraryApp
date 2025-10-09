@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block body_content %}
-    <!-- Mobile Navbar and Sidebar (Collapse) -->
+    <!-- mobile navbar and sidebar (collapse) -->
     <nav class="navbar d-md-none mobile-navbar">
         <div class="container-fluid">
             <div class="ms-auto">
@@ -12,7 +12,7 @@
         </div>
     </nav>
 
-    <!-- Mobile Collapsible Sidebar -->
+    <!-- mobile collapsible sidebar -->
     <div class="collapse mobile-sidebar" id="mobileSidebar">
         <div class="mobile-sidebar-content text-white">
             <div class="p-3">
@@ -63,7 +63,7 @@
                 </ul>
             </div>
         </div>
-        <!-- Mobile Page Header - appears below sidebar when collapsed -->
+        <!-- mobile page header - appears below sidebar when collapsed -->
         <div class="d-md-none px-3 py-2 library-header d-flex justify-content-between align-items-center" style="margin: 0;">
             <h4 class="text-black mb-0">{% block mobile_page_header %}BOOK TITLES{% endblock %}</h4>
             {% if current_user.is_authenticated %}
@@ -74,7 +74,7 @@
         </div>
     </div>
 
-    <!-- Desktop Fixed Sidebar -->
+    <!-- desktop fixed sidebar -->
     <div class="d-none d-md-block sidebar text-white vh-100 position-fixed desktop-sidebar">
         <div class="p-3">
             <h3 class="text-white text-center navbar-brand" style="font-size: 1.4rem;">SG Library</h3>
@@ -125,7 +125,7 @@
         </div>
     </div>
 
-    <!-- Main Content Area -->
+    <!-- main content area -->
     <div class="main-content">
         <div class="container-fluid">
             {% block content %}{% endblock %}

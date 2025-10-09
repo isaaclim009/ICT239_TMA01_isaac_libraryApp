@@ -2,7 +2,30 @@
 
 {% block title %}Add New Book{% endblock %}
 
-{% block mobile_page_header %}ADD A BOOK{% endblock %}
+{% block mobile_page_h                                                                                          </div>
+                            </div>
+                            <!-- author 5 -->
+                            <div class="mb-2 d-flex align-items-center">
+                                {{ form.author5.label(class="form-label me-3 mb-0 form-label-fixed-width") }}              </div>
+                            </div>
+                            <!-- author 4 -->
+                            <div class="mb-2 d-flex align-items-center">
+                                {{ form.author4.label(class="form-label me-3 mb-0 form-label-fixed-width") }}              </div>
+                            </div>
+                            <!-- author 3 -->
+                            <div class="mb-2 d-flex align-items-center">
+                                {{ form.author3.label(class="form-label me-3 mb-0 form-label-fixed-width") }}              </div>
+                            </div>
+                            <!-- author 2 -->
+                            <div class="mb-2 d-flex align-items-center">
+                                {{ form.author2.label(class="form-label me-3 mb-0 form-label-fixed-width") }}    </div>
+                        </div>
+
+                        <!-- authors rows (label beside input, left-aligned) -->
+                        <div class="mb-3">
+                            <!-- author 1 (required) -->
+                            <div class="mb-2 d-flex align-items-center">
+                                {{ form.author1.label(class="form-label me-3 mb-0 form-label-fixed-width") }}ADD A BOOK{% endblock %}
 
 {% block content %}
     <div class="bg-light bg-opacity-90 p-3 p-md-4 min-vh-100">
@@ -32,7 +55,7 @@
                     <form action="{{ url_for('books.add_book') }}" method="post">
                         {{ form.hidden_tag() }}
                         
-                        <!-- Genres (scrolling multi-select, label beside input) -->
+                        <!-- genres (scrolling multi-select, label beside input) -->
                         <div class="mb-3 d-flex align-items-start">
                             <label class="form-label me-3 mb-0 form-label-fixed-width">Choose multiple</br>Genres:</label>
                             <div class="flex-fill">
@@ -50,7 +73,7 @@
                             </div>
                         </div>
 
-                        <!-- Title -->
+                        <!-- title -->
                         <div class="mb-3 d-flex align-items-center">
                             {{ form.title.label(class="form-label me-3 mb-0 form-label-fixed-width") }}
                             <div class="flex-fill">
@@ -63,7 +86,7 @@
                             </div>
                         </div>
 
-                        <!-- Category -->
+                        <!-- category -->
                         <div class="mb-3 d-flex align-items-center">
                             {{ form.category.label(class="form-label me-3 mb-0 form-label-fixed-width") }}
                             <div class="flex-fill">
@@ -76,7 +99,7 @@
                             </div>
                         </div>
 
-                        <!-- URL for Cover -->
+                        <!-- url for cover -->
                         <div class="mb-3 d-flex align-items-center">
                             {{ form.url.label(class="form-label me-3 mb-0 form-label-fixed-width") }}
                             <div class="flex-fill">
@@ -89,7 +112,7 @@
                             </div>
                         </div>
 
-                        <!-- Description -->
+                        <!-- description -->
                         <div class="mb-3 d-flex align-items-start">
                             {{ form.description.label(class="form-label me-3 mb-0 form-label-fixed-width") }}
                             <div class="flex-fill">
@@ -104,7 +127,7 @@
 
                         <!-- Authors rows (label beside input, left-aligned) -->
                         <div id="authors-container">
-                            <!-- Author 1 (Required) -->
+                            <!-- Author 1 -->
                             <div class="mb-3 d-flex align-items-center">
                                 {{ form.author1.label(class="form-label me-3 mb-0 form-label-fixed-width") }}
                                 {{ form.author1(class="form-control me-3") }}
@@ -149,7 +172,7 @@
                                     {{ form.illustrator5.label(class="form-check-label") }}
                                 </div>
                             </div>
-                            <!-- Additional dynamic authors from session -->
+                            <!-- additional dynamic authors from session -->
                             {% if session.get('author_count') and session.author_count > 5 %}
                                 {% for i in range(6, session.author_count + 1) %}
                                 <div class="mb-3 d-flex align-items-center">
@@ -165,14 +188,14 @@
                             {% endif %}
                         </div>
                         
-                        <!-- Add More Authors Button -->
+                        <!-- add more authors button -->
                         <div class="mb-3">
                             <button type="submit" name="add_author" value="1" class="btn btn-outline-success btn-sm">
                                 <i class="fa-solid fa-plus me-2"></i>Add More Authors
                             </button>
                         </div>
 
-                        <!-- Number of pages -->
+                        <!-- number of pages -->
                         <div class="mb-3 d-flex align-items-center">
                             {{ form.pages.label(class="form-label me-3 mb-0 form-label-fixed-width") }}
                             <div class="flex-fill">
@@ -185,7 +208,7 @@
                             </div>
                         </div>
 
-                        <!-- Number of copies -->
+                        <!-- number of copies -->
                         <div class="mb-3 d-flex align-items-center">
                             {{ form.copies.label(class="form-label me-3 mb-0 form-label-fixed-width") }}
                             <div class="flex-fill">
@@ -207,7 +230,7 @@
         </div>
     </div>
 
-    <!-- Duplicate Book Confirmation Modal -->
+    <!-- duplicate book confirmation modal -->
     {% if show_duplicate_modal %}
     <div class="modal fade" id="duplicateModal" tabindex="-1" aria-labelledby="duplicateModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -239,7 +262,7 @@
                     <form action="{{ url_for('books.add_book') }}" method="post" class="inline-form">
                         {{ form.hidden_tag() }}
                         
-                        <!-- Preserve all form data -->
+                        <!-- preserve all form data -->
                         {% for field in form %}
                             {% if field.name not in ['submit', 'csrf_token'] %}
                                 {% if field.type == 'SelectMultipleField' %}
@@ -252,7 +275,7 @@
                             {% endif %}
                         {% endfor %}
                         
-                        <!-- Preserve dynamic authors -->
+                        <!-- preserve dynamic authors -->
                         {% if session.get('author_count') and session.author_count > 5 %}
                             <input type="hidden" name="author_count" value="{{ session.author_count }}">
                             {% for i in range(6, session.author_count + 1) %}
@@ -283,7 +306,7 @@
     </script>
     {% endif %}
 
-    <!-- Repeated Authors Confirmation Modal -->
+    <!-- repeated authors confirmation modal -->
     {% if show_repeated_authors_modal %}
     <div class="modal fade" id="repeatedAuthorsModal" tabindex="-1" aria-labelledby="repeatedAuthorsModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -314,7 +337,7 @@
                     <form action="{{ url_for('books.add_book') }}" method="post" class="inline-form">
                         {{ form.hidden_tag() }}
                         
-                        <!-- Preserve all form data -->
+                        <!-- preserve all form data -->
                         {% for field in form %}
                             {% if field.name not in ['submit', 'csrf_token'] %}
                                 {% if field.type == 'SelectMultipleField' %}
@@ -327,7 +350,7 @@
                             {% endif %}
                         {% endfor %}
                         
-                        <!-- Preserve dynamic authors -->
+                        <!-- preserve dynamic authors -->
                         {% if session.get('author_count') and session.author_count > 5 %}
                             <input type="hidden" name="author_count" value="{{ session.author_count }}">
                             {% for i in range(6, session.author_count + 1) %}
