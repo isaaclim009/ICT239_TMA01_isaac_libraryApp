@@ -9,7 +9,7 @@
         <div class="d-none d-md-flex justify-content-center justify-content-md-between align-items-center mb-3 mb-md-4 px-2 px-md-3 py-2 rounded library-header">
             <h1 class="text-black mb-0 fs-3 fs-md-1">CURRENT LOANS</h1>
             {% if current_user.is_authenticated %}
-            <button class="btn btn-link text-black p-0" data-bs-toggle="modal" data-bs-target="#logoutModal" style="font-size: 1rem;" title="Logout">
+            <button class="btn btn-link text-black p-0 btn-logout-icon" data-bs-toggle="modal" data-bs-target="#logoutModal" title="Logout">
                 <i class="fa-solid fa-sign-out-alt"></i>
             </button>
             {% endif %}
@@ -38,11 +38,11 @@
                             <table class="table table-hover">
                                 <thead>
                                     <tr>
-                                        <th scope="col" class="text-start" style="min-width: 280px;">Title/Author</th>
-                                        <th scope="col" class="text-start" style="min-width: 100px;">Due Date</th>
-                                        <th scope="col" class="text-start" style="min-width: 100px;">Return date</th>
-                                        <th scope="col" class="text-start" style="min-width: 100px;">Renew Count</th>
-                                        <th scope="col" class="text-start" style="width: 200px; min-width: 200px;"></th>
+                                        <th scope="col" class="text-start col-title-author">Title/Author</th>
+                                        <th scope="col" class="text-start col-date">Due Date</th>
+                                        <th scope="col" class="text-start col-date">Return date</th>
+                                        <th scope="col" class="text-start col-date">Renew Count</th>
+                                        <th scope="col" class="text-start col-actions"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -52,14 +52,13 @@
                                             <div class="d-flex align-items-center">
                                                 {% if loan.book_url %}
                                                 <img src="{{ loan.book_url }}" alt="{{ loan.book_title }}" 
-                                                     class="me-3 rounded flex-shrink-0" style="width: 60px; height: 80px; object-fit: cover; min-width: 60px;">
+                                                     class="me-3 rounded flex-shrink-0 loan-book-image">
                                                 {% else %}
-                                                <div class="me-3 rounded d-flex align-items-center justify-content-center text-muted flex-shrink-0" 
-                                                     style="width: 60px; height: 80px; min-width: 60px; background-color: #f8f9fa; border: 1px solid #dee2e6;">
-                                                    <i class="fas fa-book" style="font-size: 1.5rem;"></i>
+                                                <div class="me-3 rounded d-flex align-items-center justify-content-center text-muted flex-shrink-0 book-placeholder">
+                                                    <i class="fas fa-book icon-sm"></i>
                                                 </div>
                                                 {% endif %}
-                                                <div style="min-width: 0; overflow-wrap: break-word;">
+                                                <div class="text-overflow-wrap">
                                                     <div class="fw">{{ loan.book_title }}</div>
                                                     <div class="text-muted small mt-1">By {{ loan.book_authors }}</div>
                                                 </div>
@@ -83,7 +82,7 @@
                                         <td class="text-start align-middle">
                                             {% if loan.is_returned %}
                                                 <a href="{{ url_for('loans.delete_loan', loan_id=loan.id) }}" 
-                                                   class="btn btn-danger btn-sm" style="min-width: 80px;"
+                                                   class="btn btn-danger btn-sm btn-action"
                                                    onclick="return confirm('Are you sure you want to delete this loan record?');">
                                                     Delete
                                                 </a>
@@ -91,11 +90,11 @@
                                                 <div class="d-flex gap-2 align-items-center">
                                                     {% if loan.can_return %}
                                                         <a href="{{ url_for('loans.return_loan', loan_id=loan.id) }}" 
-                                                           class="btn btn-success btn-sm" style="min-width: 80px;">Return</a>
+                                                           class="btn btn-success btn-sm btn-action">Return</a>
                                                     {% endif %}
                                                     {% if loan.can_renew %}
                                                         <a href="{{ url_for('loans.renew_loan', loan_id=loan.id) }}" 
-                                                           class="btn btn-success btn-sm" style="min-width: 80px;">Renew</a>
+                                                           class="btn btn-success btn-sm btn-action">Renew</a>
                                                     {% endif %}
                                                 </div>
                                             {% endif %}
@@ -116,11 +115,10 @@
                                     <div class="col-4">
                                         {% if loan.book_url %}
                                         <img src="{{ loan.book_url }}" alt="{{ loan.book_title }}" 
-                                             class="img-fluid rounded" style="max-height: 120px; object-fit: cover;">
+                                             class="img-fluid rounded loan-book-image-mobile">
                                         {% else %}
-                                        <div class="d-flex align-items-center justify-content-center text-muted rounded" 
-                                             style="height: 120px; background-color: #f8f9fa; border: 1px solid #dee2e6;">
-                                            <i class="fas fa-book" style="font-size: 2rem;"></i>
+                                        <div class="d-flex align-items-center justify-content-center text-muted rounded book-placeholder-mobile">
+                                            <i class="fas fa-book icon-md"></i>
                                         </div>
                                         {% endif %}
                                     </div>
@@ -165,7 +163,7 @@
                     <!-- No loans message -->
                     <div class="text-center py-5">
                         <div class="mb-4">
-                            <i class="fas fa-book-reader text-muted" style="font-size: 4rem;"></i>
+                            <i class="fas fa-book-reader text-muted icon-lg"></i>
                         </div>
                         <h4 class="text-muted mb-3">{{ no_loans_message or "No loan currently" }}</h4>
                         <p class="text-muted">

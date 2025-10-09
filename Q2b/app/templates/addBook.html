@@ -9,7 +9,7 @@
         <div class="d-none d-md-flex justify-content-center justify-content-md-between align-items-center mb-3 mb-md-4 px-2 px-md-3 py-2 rounded library-header">
             <h1 class="text-black mb-0 fs-3 fs-md-1">ADD A BOOK</h1>
             {% if current_user.is_authenticated %}
-            <button class="btn btn-link text-black p-0" data-bs-toggle="modal" data-bs-target="#logoutModal" style="font-size: 1rem;" title="Logout">
+            <button class="btn btn-link text-black p-0 btn-logout-icon" data-bs-toggle="modal" data-bs-target="#logoutModal" title="Logout">
                 <i class="fa-solid fa-sign-out-alt"></i>
             </button>
             {% endif %}
@@ -35,8 +35,8 @@
                         <!-- Genres (scrolling multi-select, label beside input) -->
                         <div class="mb-3 d-flex align-items-start">
                             <label class="form-label me-3 mb-0 form-label-fixed-width">Choose multiple</br>Genres:</label>
-                            <div style="flex:1">
-                                <select name="genres" id="genres" multiple class="form-select" size="4" style="height: auto; overflow:auto; width: 100%;">
+                            <div class="flex-fill">
+                                <select name="genres" id="genres" multiple class="form-select genre-select" size="4">
                                     {% for value, label in form.genres.choices %}
                                         <option value="{{ value }}" {% if form.genres.data and value in form.genres.data %}selected{% endif %}>{{ label }}</option>
                                     {% endfor %}
@@ -53,8 +53,8 @@
                         <!-- Title -->
                         <div class="mb-3 d-flex align-items-center">
                             {{ form.title.label(class="form-label me-3 mb-0 form-label-fixed-width") }}
-                            <div style="flex:1">
-                                {{ form.title(class="form-control", style="width: 100%;") }}
+                            <div class="flex-fill">
+                                {{ form.title(class="form-control form-control-full") }}
                                 {% if form.title.errors %}
                                     {% for error in form.title.errors %}
                                         <div class="text-danger small">{{ error }}</div>
@@ -66,8 +66,8 @@
                         <!-- Category -->
                         <div class="mb-3 d-flex align-items-center">
                             {{ form.category.label(class="form-label me-3 mb-0 form-label-fixed-width") }}
-                            <div style="flex:1">
-                                {{ form.category(class="form-select", style="width: 100%;") }}
+                            <div class="flex-fill">
+                                {{ form.category(class="form-select form-control-full") }}
                                 {% if form.category.errors %}
                                     {% for error in form.category.errors %}
                                         <div class="text-danger small">{{ error }}</div>
@@ -79,8 +79,8 @@
                         <!-- URL for Cover -->
                         <div class="mb-3 d-flex align-items-center">
                             {{ form.url.label(class="form-label me-3 mb-0 form-label-fixed-width") }}
-                            <div style="flex:1">
-                                {{ form.url(class="form-control", style="width: 100%;") }}
+                            <div class="flex-fill">
+                                {{ form.url(class="form-control form-control-full") }}
                                 {% if form.url.errors %}
                                     {% for error in form.url.errors %}
                                         <div class="text-danger small">{{ error }}</div>
@@ -92,8 +92,8 @@
                         <!-- Description -->
                         <div class="mb-3 d-flex align-items-start">
                             {{ form.description.label(class="form-label me-3 mb-0 form-label-fixed-width") }}
-                            <div style="flex:1">
-                                {{ form.description(class="form-control", rows="6", style="width: 100%;") }}
+                            <div class="flex-fill">
+                                {{ form.description(class="form-control form-control-full", rows="6") }}
                                 {% if form.description.errors %}
                                     {% for error in form.description.errors %}
                                         <div class="text-danger small">{{ error }}</div>
@@ -175,8 +175,8 @@
                         <!-- Number of pages -->
                         <div class="mb-3 d-flex align-items-center">
                             {{ form.pages.label(class="form-label me-3 mb-0 form-label-fixed-width") }}
-                            <div style="flex:1">
-                                {{ form.pages(class="form-control", style="width: 100%;") }}
+                            <div class="flex-fill">
+                                {{ form.pages(class="form-control form-control-full") }}
                                 {% if form.pages.errors %}
                                     {% for error in form.pages.errors %}
                                         <div class="text-danger small">{{ error }}</div>
@@ -188,8 +188,8 @@
                         <!-- Number of copies -->
                         <div class="mb-3 d-flex align-items-center">
                             {{ form.copies.label(class="form-label me-3 mb-0 form-label-fixed-width") }}
-                            <div style="flex:1">
-                                {{ form.copies(class="form-control", style="width: 100%;") }}
+                            <div class="flex-fill">
+                                {{ form.copies(class="form-control form-control-full") }}
                                 {% if form.copies.errors %}
                                     {% for error in form.copies.errors %}
                                         <div class="text-danger small">{{ error }}</div>
@@ -199,7 +199,7 @@
                         </div>
 
                         <div class="text-end">
-                            {{ form.submit(class="btn btn-success", style="border-radius: 8px; padding: 0.5rem 1rem;") }}
+                            {{ form.submit(class="btn btn-success btn-rounded") }}
                         </div>
                     </form>
                 </div>
@@ -236,7 +236,7 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                     
-                    <form action="{{ url_for('books.add_book') }}" method="post" style="display: inline;">
+                    <form action="{{ url_for('books.add_book') }}" method="post" class="inline-form">
                         {{ form.hidden_tag() }}
                         
                         <!-- Preserve all form data -->
@@ -311,7 +311,7 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel and Edit</button>
                     
-                    <form action="{{ url_for('books.add_book') }}" method="post" style="display: inline;">
+                    <form action="{{ url_for('books.add_book') }}" method="post" class="inline-form">
                         {{ form.hidden_tag() }}
                         
                         <!-- Preserve all form data -->

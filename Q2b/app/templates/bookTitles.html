@@ -9,7 +9,7 @@
     <div class="d-none d-md-flex {% if current_user.is_authenticated %}justify-content-center justify-content-md-between{% else %}justify-content-start{% endif %} align-items-center mb-3 mb-md-4 px-2 px-md-3 py-2 rounded library-header">
             <h1 class="text-black mb-0 fs-3 fs-md-1">BOOK TITLES</h1>
             {% if current_user.is_authenticated %}
-            <button class="btn btn-link text-black p-0" data-bs-toggle="modal" data-bs-target="#logoutModal" style="font-size: 1rem;" title="Logout">
+            <button class="btn btn-link text-black p-0 btn-logout-icon" data-bs-toggle="modal" data-bs-target="#logoutModal" title="Logout">
                 <i class="fa-solid fa-sign-out-alt"></i>
             </button>
             {% endif %}
@@ -21,7 +21,7 @@
                     <span class="text-dark order-1 order-sm-1">Number of titles: {{ book_count }}</span>
                     <form method="POST" action="/" class="d-flex flex-row align-items-center gap-2 mb-0 order-2 order-sm-2 align-self-end align-self-sm-center">
                         <label for="category" class="form-label text-dark mb-0 text-nowrap">Category</label>
-                        <select name="category" id="category" class="form-select" style="min-width: 120px; max-width: 150px;">
+                        <select name="category" id="category" class="form-select category-select">
                             {% for value, label in categories %}
                             <option value="{{ value }}" {% if selected_category == value %}selected{% endif %}>{{ label }}</option>
                             {% endfor %}
@@ -44,17 +44,17 @@
                 
                 <div class="col-12 col-sm-8 col-md-8 col-lg-10 d-flex flex-column">
                     <div class="card-body flex-grow-1">
-                        <div class="card-title text-dark" style="font-weight:275; font-size:1.25rem;">
+                        <div class="card-title text-dark book-card-title">
                             {{ book.title }}<br>
                             By {{ book.authors | join(', ') }}
                         </div>
-                        <span style="display:block; height:0.5em;"></span>
+                        <span class="spacer-sm"></span>
                         
                         <p class="card-text text-dark mt-2 fs-6 lh-base">
                             Category: {{ book.category }}, {{ book.genres | join(', ') }}<br>
                             Pages: {{ book.pages }}
                         </p>
-                        <span style="display:block; height:0.5em;"></span>
+                        <span class="spacer-sm"></span>
                         <p class="book-description">{{ book.description_preview|safe }}</p>
                     </div>
                     
@@ -66,16 +66,14 @@
                                     {# Do not show the loan button to admin users #}
                                     {% if not current_user.is_authenticated or not current_user.is_admin %}
                                         <a href="{{ url_for('loans.make_loan', book_id=book.id) }}" 
-                                            class="btn btn-success me-2" 
-                                            style="border-radius: 8px; padding: 0.5rem 1rem;">
+                                            class="btn btn-success me-2 btn-rounded">
                                             Make a Loan
                                         </a>
                                     {% endif %}
                                 {% endif %}
 
                                 <a href="{{ url_for('books.book_details', book_id=book.id) }}" 
-                                    class="btn btn-success" 
-                                    style="border-radius: 8px; padding: 0.5rem 1rem;">
+                                    class="btn btn-success btn-rounded">
                                     More details
                                 </a>
                           </div>
