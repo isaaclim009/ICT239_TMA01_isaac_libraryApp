@@ -1,7 +1,6 @@
 from flask import Flask
 from flask_mongoengine import MongoEngine, Document
 from flask_login import LoginManager
-from app.models.users import User
 
 def create_app():
     app = Flask(__name__)
@@ -19,6 +18,8 @@ def create_app():
     return app, db, login_manager
 
 app, db, login_manager = create_app()
+
+from app.models.users import User
 
 @login_manager.user_loader
 def load_user(user_id):
