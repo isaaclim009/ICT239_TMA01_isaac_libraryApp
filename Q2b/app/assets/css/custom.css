@@ -413,3 +413,120 @@ hr {
     right: 0.75rem;
     z-index: 2;
 }
+
+/* Reusable Button Styles */
+.btn-rounded {
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+}
+
+.btn-action {
+    min-width: 80px;
+}
+
+.btn-logout-icon {
+    font-size: 1rem;
+}
+
+/* Reusable Layout Styles */
+.flex-fill {
+    flex: 1;
+}
+
+.form-control-full {
+    width: 100%;
+}
+
+.inline-form {
+    display: inline;
+}
+
+/* Reusable Card Styles */
+.card-auth {
+    border-radius: 8px;
+}
+
+/* Book Image Placeholder */
+.book-placeholder {
+    width: 60px;
+    height: 80px;
+    min-width: 60px;
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+}
+
+.book-placeholder-mobile {
+    height: 120px;
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+}
+
+/* Icon Size Utilities */
+.icon-sm {
+    font-size: 1.5rem;
+}
+
+.icon-md {
+    font-size: 2rem;
+}
+
+.icon-lg {
+    font-size: 4rem;
+}
+
+/* Table Column Widths */
+.col-title-author {
+    min-width: 280px;
+}
+
+.col-date {
+    min-width: 100px;
+}
+
+.col-actions {
+    width: 200px;
+    min-width: 200px;
+}
+
+/* Category Dropdown */
+.category-select {
+    min-width: 120px;
+    max-width: 150px;
+}
+
+/* Book Card Styles */
+.book-card-title {
+    font-weight: 275;
+    font-size: 1.25rem;
+}
+
+.spacer-sm {
+    display: block;
+    height: 0.5em;
+}
+
+/* Loans Image Styles */
+.loan-book-image {
+    width: 60px;
+    height: 80px;
+    object-fit: cover;
+    min-width: 60px;
+}
+
+.loan-book-image-mobile {
+    max-height: 120px;
+    object-fit: cover;
+}
+
+/* Text Overflow Helper */
+.text-overflow-wrap {
+    min-width: 0;
+    overflow-wrap: break-word;
+}
+
+/* Multi-select Genre */
+.genre-select {
+    height: auto;
+    overflow: auto;
+    width: 100%;
+}
