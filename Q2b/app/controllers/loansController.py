@@ -91,8 +91,6 @@ def view_loans():
             'can_delete': loan.can_delete
         }
         loans_data.append(loan_info)
-    # Ensure loans are sorted by borrow_date descending (most recent first)
-    loans_data.sort(key=lambda l: l.get('borrow_date') or datetime.min, reverse=True)
     
     return render_template('loans.html', 
                          loans=loans_data, 
