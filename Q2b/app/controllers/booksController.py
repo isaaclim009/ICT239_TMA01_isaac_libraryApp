@@ -115,6 +115,9 @@ def add_book():
             session['author_count'] = current_count + 1
             return render_template('addBook.html', form=form, panel="ADD A BOOK")
         
+        if 'cancel_modal' in request.form:
+            return render_template('addBook.html', form=form, panel="ADD A BOOK")
+        
         if 'submit' in request.form or 'confirm_duplicate' in request.form or 'confirm_repeated_authors' in request.form:
             if form.validate():
                 try:
